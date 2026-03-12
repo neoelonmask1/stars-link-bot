@@ -1,9 +1,9 @@
-from aiogram import Router, Bot
+from aiogram import Bot, Router
 from aiogram.filters import Command
 from aiogram.types import Message
 from aiogram_i18n import I18nContext
 
-router = Router(name=__name__)
+router: Router = Router(name=__name__)
 
 
 @router.message(Command("balance"))

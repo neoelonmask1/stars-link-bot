@@ -5,12 +5,12 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-logger = logging.getLogger(__name__)
+logger: logging.Logger = logging.getLogger(__name__)
 
 
 class Config:
     def __init__(self) -> None:
-        env_path = Path(__file__).resolve().parents[2] / ".env"
+        env_path: Path = Path(__file__).resolve().parents[2] / ".env"
 
         if not env_path.exists():
             logger.error(".env file not found!")
@@ -25,4 +25,4 @@ class Config:
         self.BOT_TOKEN: str = os.getenv("BOT_TOKEN")
 
 
-config = Config()
+config: Config = Config()

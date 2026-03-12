@@ -5,35 +5,32 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.types import BotCommand
 from aiogram_i18n import I18nMiddleware
-from aiogram_i18n.cores.fluent_runtime_core import FluentRuntimeCore
+from aiogram_i18n.cores.fluent_compile_core import FluentCompileCore
 
 from bot.commands import (
     balance_router,
-    paid_media_router,
+    media_router,
     payment_router,
     refund_router,
-    refund_transactions_router,
     start_router,
 )
 from bot.core import config, logger, setup_logging
 
 
 async def set_bot_commands(bot: Bot) -> None:
-    commands = [
-        BotCommand(command="start", description="Start"),
-        BotCommand(command="pay", description="Pay with Stars"),
-        BotCommand(command="refund", description="Refund a payment"),
-        BotCommand(command="refund_user", description="Refund user transactions"),
-        BotCommand(command="balance", description="Show balance"),
-        BotCommand(command="paid_media", description="Send paid media"),
+    commands: list[BotCommand] = [
+        BotCommand(command="start", description="Show integration overview"),
+        BotCommand(command="pay", description="Create a Stars invoice"),
+        BotCommand(command="refund", description="Refund a Star payment"),
+        BotCommand(command="balance", description="Show Stars balance"),
+        BotCommand(command="media", description="Send paid media"),
     ]
     await bot.set_my_commands(commands)
 
 
 async def setup_i18n() -> I18nMiddleware:
-    i18n_core = FluentRuntimeCore(path="locales/{locale}")
+    i18n_core: FluentCompileCore = FluentCompileCore(path="locales/{locale}")
     await i18n_core.startup()
-    logger.info(f"Loaded locales: {i18n_core.available_locales}")
     return I18nMiddleware(core=i18n_core, default_locale="en")
 
 
@@ -65,8 +62,7 @@ async def main() -> None:
         payment_router,
         balance_router,
         refund_router,
-        refund_transactions_router,
-        paid_media_router,
+        media_router,
     ]:
         dp.include_router(router)
 

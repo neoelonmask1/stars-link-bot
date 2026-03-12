@@ -21,11 +21,10 @@
 ## Features
 
 - Example of Stars payment flow using `/pay <amount>`
-- Optional payment link flow (commented in `payment.py`)
-- Refund a specific payment with `/refund <user_id> <transaction_id>`
+- Optional payment link flow (also included in `payment.py`)
+- Refund a specific payment or all user transactions with `/refund <user_id> [transaction_id]`
 - Check bot balance with `/balance`
-- Send paid media with `/paid_media <amount>`
-- Batch refund user transactions with `/refund_user <user_id>`
+- Send paid media with `/media <amount>`
 
 ## Screenshot / Example
 
@@ -59,14 +58,13 @@ python main.py
 
 ## Commands
 
-| Command                              | Description                             |
-|--------------------------------------|-----------------------------------------|
-| `/start`                             | Show integration overview               |
-| `/pay <amount>`                      | Create a Stars invoice                  |
-| `/refund <user_id> <transaction_id>` | Refund a specific Stars payment         |
-| `/balance`                           | Show current Stars balance              |
-| `/paid_media <amount>`               | Send paid media with Stars price        |
-| `/refund_user <user_id>`             | Refund all refundable user transactions |
+| Command                                   | Description                                          |
+|-------------------------------------------|------------------------------------------------------|
+| `/start`                                  | Show integration overview                            |
+| `/pay <amount>`                           | Create a Stars invoice                               |
+| `/refund <user_id> [transaction_id]`      | Refund a payment (specific or all for user)          |
+| `/balance`                                | Show current Stars balance                           |
+| `/media <amount>`                         | Send paid media with Stars price                     |
 
 ---
 
