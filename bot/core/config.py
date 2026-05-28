@@ -1,6 +1,5 @@
 import logging
 import os
-import sys
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -8,13 +7,17 @@ logger: logging.Logger = logging.getLogger(__name__)
 
 class Config:
     def __init__(self) -> None:
+        # Load .env if it exists, but don't fail if it doesn't (Railway uses direct env vars)
         env_path: Path = Path(__file__).resolve().parents[2] / ".env"
-        load_dotenv(env_path)
+        if env_path.exists():
+            load_dotenv(env_path)
 
         self.BOT_TOKEN = os.getenv("BOT_TOKEN")
         if not self.BOT_TOKEN:
-            logger.error("Missing BOT_TOKEN in .env")
-            sys.exit(1)
+            # If we're in a real environment, we should log but not necessarily exit 1 
+            # if we want to see logs in Railway first.
+            logger.error("CRITICAL: BOT_TOKEN not found in environment variables!")
+            # Note: Railway might crash if we exit here, but it's better than running without token.
 
         self.STARTUP_NAME = os.getenv("STARTUP_NAME", "TopPromptBot")
         
