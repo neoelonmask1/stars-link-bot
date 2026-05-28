@@ -1,62 +1,49 @@
-<div align="center">
-   <img src="files/stars.svg" alt="TopPromptBot Logo" width="140" height="140" style="border-radius:24px; box-shadow:0 4px 12px rgba(0,0,0,0.25);">
+# TopPromptBot - Telegram Stars MVP
 
-   <h1 style="margin-top: 24px; font-size:42px;">TopPromptBot - Startup MVP</h1>
+A clean, production-ready Telegram bot for selling digital content (links, files, text) via **Telegram Stars (XTR)**.
 
-   <p style="font-size:18px; color:#555; max-width:640px; line-height:1.4;">
-      <strong>Premium AI Prompt Store powered by Telegram Stars ⭐</strong>
-   </p>
-</div>
+## Features
+- ✅ **Native Stars Payment**: Zero third-party providers, uses `currency="XTR"`.
+- ✅ **Flexible Delivery**: Support for links, plain text (keys/codes), and files.
+- ✅ **Clean Code**: No dead features, focused entirely on the payment -> delivery flow.
+- ✅ **Production Ready**: Env-based config, error logging, and simple deployment.
 
----
+## Quick Start
 
-## Startup MVP: TopPromptBot
+### 1. Setup Environment
+Create a `.env` file:
+```env
+BOT_TOKEN=вашь_токен_из_botfather
+STARTUP_NAME=TopPromptBot
+```
 
-This bot is a ready-to-use storefront for selling AI prompt packs, productivity libraries, and creator toolkits using **Telegram Stars (XTR)**.
+### 2. Configure Products
+Edit `bot/core/config.py`. Add your products to the `PRODUCTS` dictionary:
+```python
+"my_product": {
+    "title": "Cool Guide",
+    "price": 50,
+    "delivery_type": "links", # or "file", "text"
+    "content": ["https://example.com"] # or "file/path.pdf" or "Secret Key"
+}
+```
 
-### Features
-- 🚀 **Instant Access**: Users get links immediately after successful payment.
-- 💰 **Stars Only**: Uses native Telegram Stars currency (XTR) for a seamless UX.
-- 🔥 **Discount Logic**: Integrated "50% Discount" messaging to drive conversions.
-- 📦 **Product Catalog**: Pre-configured with ChatGPT, Midjourney, SEO, and Research packs.
-- 📝 **Logging**: Successful payments are logged to the console/file for tracking.
-
-### Configuration
-
-To change prices, links, or the startup name, edit the following files:
-
-1. **`.env`**:
-   - `BOT_TOKEN`: Your Telegram Bot Token from @BotFather.
-   - `STARTUP_NAME`: The name of your startup.
-
-2. **`bot/core/config.py`**:
-   - Edit the `PRODUCTS` dictionary to change titles, prices (original and discounted), and the links delivered after payment.
-
-3. **`locales/en/messages.ftl`**:
-   - Edit the text for the `/start` message, success message, and discount banners.
-
-### Deployment
-
-#### Local Run
+### 3. Run Locally
 ```bash
 pip install -r requirements.txt
 python main.py
 ```
 
-#### Production (PaaS like Railway/Render)
-The repository includes a `Procfile` and `runtime.txt` for quick deployment.
-1. Connect your GitHub fork to the PaaS.
-2. Set the `BOT_TOKEN` and `STARTUP_NAME` environment variables in the PaaS dashboard.
-3. The bot will start automatically using `python main.py`.
+## Deployment
+This bot is ready for **Railway**, **Render**, or **VPS**.
+- **Railway/Render**: Just connect the repo. It uses the included `Procfile`.
+- **VPS**: Use `systemd` to run `python main.py`.
+
+## Files
+- `main.py`: Entry point.
+- `bot/core/config.py`: Product catalog and settings.
+- `bot/commands/payment.py`: Stars payment and delivery logic.
+- `locales/en/messages.ftl`: UI text and templates.
 
 ---
-
-## Commands
-- `/start`: Open the store and view available prompt packs.
-
----
-
-<div align="center" style="margin-top:32px;">
-   <p><strong>TopPromptBot MVP</strong></p>
-   <p>Built with aiogram 3.x and Telegram Stars ⭐</p>
-</div>
+Built with ❤️ using aiogram 3.x
